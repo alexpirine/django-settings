@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
-from django.db.models.signals import post_syncdb
+from django.db.models.signals import post_migrate
 
 from .moduleregistry import new_registry
 
@@ -111,7 +111,7 @@ registry.register(PositiveInteger)
 # end ###################
 
 
-@receiver(post_syncdb)
-def handle_post_syncdb(sender, **kwargs):
+@receiver(post_migrate)
+def handle_post_migrate(sender, **kwargs):
     from django_settings.dataapi import initialize_data
     initialize_data()
